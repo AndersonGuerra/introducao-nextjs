@@ -25,6 +25,11 @@ export default function Home() {
     }
   }
 
+  function removerDaLista(tarefa) {
+    const listaAuxiliar = lista.filter((e) => e !== tarefa);
+    setLista(listaAuxiliar);
+  }
+
   return (
     <Container>
       <h1>Tarefas</h1>
@@ -37,7 +42,11 @@ export default function Home() {
         <Button onClick={adicionarNaLista}>Adicionar</Button>
         <ListGroup>
           {lista.map((tarefa) => (
-            <ListGroupItem key={tarefa} action>
+            <ListGroupItem
+              onClick={() => removerDaLista(tarefa)}
+              key={tarefa}
+              action
+            >
               {tarefa}
             </ListGroupItem>
           ))}
