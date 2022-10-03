@@ -13,19 +13,16 @@ export default function Home() {
   const [tarefa, setTarefa] = useState("");
 
   function adicionarNaLista() {
-    if (tarefa !== "" && !lista.includes(tarefa)) {
+    if (lista.includes(tarefa)) {
+      alert("Tarefa repetida");
+    } else if (tarefa !== "") {
       const listaAuxiliar = lista;
       listaAuxiliar.push(tarefa);
       setLista(listaAuxiliar);
       setTarefa("");
+    } else {
+      alert("Tarefa vazia");
     }
-  }
-
-  function removerDaLista(tarefa) {
-    const listaAuxiliar = lista.filter(
-      (e) => e !== tarefa
-    );
-    setLista(listaAuxiliar);
   }
 
   return (
@@ -33,18 +30,14 @@ export default function Home() {
       <h1>Tarefas</h1>
       <Stack gap={3}>
         <FormControl
-          placeholder="Insira sua tarefa"
           value={tarefa}
           onChange={(e) => setTarefa(e.target.value)}
+          placeholder="Insira sua tarefa"
         ></FormControl>
         <Button onClick={adicionarNaLista}>Adicionar</Button>
         <ListGroup>
           {lista.map((tarefa) => (
-            <ListGroupItem
-              action
-              key={tarefa}
-              onClick={() => removerDaLista(tarefa)}
-            >
+            <ListGroupItem key={tarefa} action>
               {tarefa}
             </ListGroupItem>
           ))}
