@@ -51,7 +51,6 @@ export default function Home() {
   async function alternarRealizado(tarefa) {
     await http.alternarRealizado(tarefa.id);
     http.listarTodasAsTarefas().then((r) => {
-      console.log(r);
       setLista(r);
     });
   }
