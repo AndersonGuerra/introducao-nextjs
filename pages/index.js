@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   async function adicionarNaLista() {
-    if (lista.includes(tarefa)) {
+    if (lista.filter((e) => e.title === tarefa).length > 0) {
       alert("Tarefa repetida");
     } else if (tarefa !== "") {
       const tarefaCriada = await http.criarTarefa(tarefa);
@@ -51,7 +51,7 @@ export default function Home() {
   async function alternarRealizado(tarefa) {
     await http.alternarRealizado(tarefa.id);
     http.listarTodasAsTarefas().then((r) => {
-      console.log(r)
+      console.log(r);
       setLista(r);
     });
   }
