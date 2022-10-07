@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Card, Container, Button, Stack, Placeholder } from "react-bootstrap";
-import http from "../../services/http";
+import api from "../../services/api";
 
 export default function DetalheTarefa() {
   const router = useRouter();
@@ -10,7 +10,7 @@ export default function DetalheTarefa() {
 
   useEffect(() => {
     const { id } = router.query;
-    http.obterTarefa(id).then((r) => {
+    api.obterTarefa(id).then((r) => {
       setTarefa(r);
     });
   }, []);

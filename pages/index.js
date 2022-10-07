@@ -11,14 +11,14 @@ import {
   Col,
 } from "react-bootstrap";
 import { CheckSquare, Eye, Trash } from "react-bootstrap-icons";
-import http from "../services/http";
+import api from "../services/api";
 
 export default function Home() {
   const [lista, setLista] = useState([]);
   const [tarefa, setTarefa] = useState("");
 
   useEffect(() => {
-    http.listarTodasAsTarefas().then((r) => {
+    api.listarTodasAsTarefas().then((r) => {
       setLista(r);
     });
   }, []);
@@ -27,7 +27,7 @@ export default function Home() {
     if (lista.filter((e) => e.title === tarefa).length > 0) {
       alert("Tarefa repetida");
     } else if (tarefa !== "") {
-      const tarefaCriada = await http.criarTarefa(tarefa);
+      const tarefaCriada = await api.criarTarefa(tarefa);
       const listaAuxiliar = lista;
       listaAuxiliar.push(tarefaCriada);
       setLista(listaAuxiliar);
@@ -38,9 +38,9 @@ export default function Home() {
   }
 
   async function removerDaLista(tarefa) {
-    const result = await http.deletarTarefa(tarefa.id);
+    const result = await api.deletarTarefa(tarefa.id);
     if (result.id === undefined) {
-      http.listarTodasAsTarefas().then((r) => {
+      api.listarTodasAsTarefas().then((r) => {
         setLista(r);
       });
     } else {
@@ -49,8 +49,8 @@ export default function Home() {
   }
 
   async function alternarRealizado(tarefa) {
-    await http.alternarRealizado(tarefa.id);
-    http.listarTodasAsTarefas().then((r) => {
+    await api.alternarRealizado(tarefa.id);
+    api.listarTodasAsTarefas().then((r) => {
       setLista(r);
     });
   }
